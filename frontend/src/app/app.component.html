@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Notification App</h1>
+
+  <button id="subscribe" (click)="subscribe()">Subscribe</button>
+  <textarea
+    id="notificationText"
+    [(ngModel)]="notificationText"
+    placeholder="Enter notification message"
+  ></textarea>
+  <button id="sendNotification" (click)="sendNotification()">Send Notification</button>
+</div>

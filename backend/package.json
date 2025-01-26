@@ -4,16 +4,23 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"npm start\"",
-    "start": "node ./js/src/server.js"
+    "start": "node ./js/src/index.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/web-push": "^3.6.4",
     "tsc-watch": "^6.2.1",
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "firebase": "^11.1.0"
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "firebase": "^11.1.0",
+    "firebase-admin": "^13.0.2",
+    "web-push": "^3.6.7"
   }
 }
