@@ -9,10 +9,6 @@ const PORT = 3001;
 
 app.use(cors());
 
-// Serve static files from the frontend build directory
-app.use(express.static(path.join(__dirname, '../../frontend/public')));
-
-
 // Array para armazenar as assinaturas
 const subscriptions: webpush.PushSubscription[] = [];
 
@@ -30,7 +26,6 @@ app.use(bodyParser.json());
 app.post('/subscribe', (req: Request, res: Response) => {
   const subscription: webpush.PushSubscription = req.body;
   try {
-    console.log('Estou no backend no try');
     subscriptions.push(subscription);
     res.status(201).json({ message: 'Subscription added successfully' });
   } catch (error) {
@@ -54,9 +49,8 @@ app.post('/notify', async (req, res) => {
   }
 });
 
-// Serve the frontend application
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/public/index.html'));
+app.get('/vapidPublicKey', (req, res) => {
+  res.json({ publicKey: vapidKeys.publicKey });
 });
 
 

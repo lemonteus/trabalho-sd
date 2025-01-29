@@ -20,7 +20,6 @@ app.use(body_parser_1.default.json());
 app.post('/subscribe', (req, res) => {
     const subscription = req.body;
     try {
-        console.log('Estou no backend no try');
         subscriptions.push(subscription);
         res.status(201).json({ message: 'Subscription added successfully' });
     }
@@ -40,6 +39,9 @@ app.post('/notify', async (req, res) => {
         console.error('Error sending notifications:', error);
         res.status(500).json({ error: 'Failed to send notifications' });
     }
+});
+app.get('/vapidPublicKey', (req, res) => {
+    res.json({ publicKey: vapidKeys.publicKey });
 });
 app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
