@@ -49,10 +49,6 @@ app.post('/notify', async (req, res) => {
   }
 });
 
-app.get('/vapidPublicKey', (req, res) => {
-  res.json({ publicKey: vapidKeys.publicKey });
-});
-
 
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`);

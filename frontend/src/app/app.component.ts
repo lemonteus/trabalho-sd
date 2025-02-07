@@ -13,7 +13,8 @@ export class AppComponent {
   notificationText: string = '';
 
   async getPublicVAPIDKey(): Promise<string> {
-    const response = await fetch('http://localhost:3001/vapidPublicKey');
+    //get VAPID key from notification server
+    const response = await fetch('http://localhost:3002/vapidPublicKey');
     const data = await response.json();  
 
     console.log('Public VAPID key:', data.publicKey);
@@ -36,7 +37,17 @@ export class AppComponent {
 
     try {
       const publicVAPIDKey = await this.getPublicVAPIDKey();
-      const registration = await navigator.serviceWorker.register('serviceWorker.js');
+      const registration = await navigator.serviceWorker.register('/serviceWorker.js');
+
+      console.log('Service Worker registered with scope:', registration.scope);
+
+      // Check for existing subscription
+      const existingSubscription = await registration.pushManager.getSubscription();
+      if (existingSubscription) {
+        await existingSubscription.unsubscribe();
+        console.log('Unsubscribed from existing subscription.');
+      }
+
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: publicVAPIDKey,
@@ -60,7 +71,7 @@ export class AppComponent {
     if (this.notificationText.trim()) {
       console.log('Sending notification:', this.notificationText);
 
-      fetch('http://localhost:3001/notify', {
+      fetch('http://localhost:3002/notify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

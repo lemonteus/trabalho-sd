@@ -32,3 +32,18 @@ messaging.onBackgroundMessage((payload) => {
   // Show notification to the user
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+// Add push event listener
+self.addEventListener('push', event => {
+  console.log('[Service Worker] Push Received.');
+  const data = event.data.json();
+  console.log(`[Service Worker] Push had this data: "${data}"`);
+
+  const title = data.title || 'Notification';
+  const options = {
+    body: data.body || 'You have a new message!',
+    icon: data.icon || '/favicon.ico',
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
