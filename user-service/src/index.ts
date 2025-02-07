@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import {onRequest} from "firebase-functions/v2/https";
+
 const app = express();
 const PORT = 3003;
 
@@ -20,6 +22,4 @@ app.get('/users', (req, res) => {
   res.json(users);
 });
 
-app.listen(PORT, () => {
-  console.log(`User service running on http://localhost:${PORT}`);
-});
+export const userService = onRequest(app);

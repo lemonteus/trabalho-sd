@@ -3,6 +3,9 @@ import bodyParser from 'body-parser';
 import webpush from 'web-push';
 import cors from 'cors';
 
+import {onRequest} from "firebase-functions/v2/https";
+import * as logger from "firebase-functions/logger";
+
 const app = express();
 const PORT = 3002;
 
@@ -28,7 +31,7 @@ app.post('/notify', async (req, res) => {
       webpush.sendNotification(subscription, JSON.stringify({ title, body })).catch(error => {
         if (error.statusCode === 410) {
           // Remove expired subscription
-          console.log('Removing expired subscription:', subscription.endpoint);
+          logger.log('Removing expired subscription:', subscription.endpoint);
           const response = fetch('http://localhost:3001/unsubscribe', {
             method: 'DELETE',
             headers: {
@@ -44,7 +47,7 @@ app.post('/notify', async (req, res) => {
     await Promise.all(notifications);
     res.status(200).json({ message: 'Notifications sent successfully' });
   } catch (error) {
-    console.error('Error sending notifications:', error);
+    logger.error('Error sending notifications:', error);
     res.status(500).json({ error: 'Failed to send notifications' });
   }
 });
@@ -55,6 +58,4 @@ app.get('/vapidPublicKey', (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Notification service running on http://localhost:${PORT}`);
-});
+export const notificationService = onRequest(app);

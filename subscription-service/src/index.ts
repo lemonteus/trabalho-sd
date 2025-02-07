@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import {onRequest} from "firebase-functions/v2/https";
+
 const app = express();
 const PORT = 3001;
 
@@ -34,9 +36,7 @@ app.get('/subscriptions', (req, res) => {
   res.json(subscriptions);
 });
 
-app.listen(PORT, () => {
-  console.log(`Subscription service running on http://localhost:${PORT}`);
-});
+export const subscriptionService = onRequest(app);
 
 function getSubscriptionIndex(endpoint: string, subscription: any): number {
   return subscriptions.findIndex(sub => sub.endpoint === subscription.endpoint);
