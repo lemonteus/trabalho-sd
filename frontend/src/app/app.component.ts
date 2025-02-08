@@ -63,7 +63,7 @@ export class AppComponent {
         },
         body: JSON.stringify(subscription),
       });
-
+      alert("Subscription was a success");
       console.log('Subscription:', subscription);
     } catch (error) {
       console.error('Error during service worker registration:', error);
