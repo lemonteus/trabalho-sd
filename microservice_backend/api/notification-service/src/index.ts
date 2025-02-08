@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } else if (req.method === 'POST') {
     const { title, body } = req.body;
     try {
-      const response = await fetch('https://trabalho-sd.vercel.app/api/subscription-service/subscriptions');
+      const response = await fetch('https://trabalho-sd.vercel.app/api/subscription-service');
       const subscriptions = await response.json();
   
       const notifications = subscriptions.map((subscription: any) =>

@@ -12,12 +12,9 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   notificationText: string = '';
 
-  private rootUrl: string = 'https://trabalho-sd.vercel.app';
-  private apiUrl: string = `${this.rootUrl}/api`;
-
   async getPublicVAPIDKey(): Promise<string> {
     //get VAPID key from notification server
-    const response = await fetch(`${this.apiUrl}/notification-service`);
+    const response = await fetch('http://localhost:3002/vapidPublicKey');
     const data = await response.json();  
 
     console.log('Public VAPID key:', data.publicKey);
@@ -40,7 +37,7 @@ export class AppComponent {
 
     try {
       const publicVAPIDKey = await this.getPublicVAPIDKey();
-      const registration = await navigator.serviceWorker.register(`${this.rootUrl}/frontend/serviceWorker.js`);
+      const registration = await navigator.serviceWorker.register('/serviceWorker.js');
 
       console.log('Service Worker registered with scope:', registration.scope);
 
@@ -56,7 +53,7 @@ export class AppComponent {
         applicationServerKey: publicVAPIDKey,
       });
 
-      await fetch(`${this.apiUrl}/subscription-service`, {
+      await fetch('http://localhost:3001/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +71,7 @@ export class AppComponent {
     if (this.notificationText.trim()) {
       console.log('Sending notification:', this.notificationText);
 
-      fetch(`${this.apiUrl}/notification-service`, {
+      fetch('http://localhost:3002/notify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

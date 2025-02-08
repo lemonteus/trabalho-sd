@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from '@firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getMessaging, Messaging } from 'firebase/messaging';
 
 @Injectable({
