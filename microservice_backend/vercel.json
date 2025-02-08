@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/subscription-service/src/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/notification-service/src/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/user-service/src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/subscription-service",
+      "dest": "/api/subscription-service/src/index.ts"
+    },
+    {
+      "src": "/api/notification-service",
+      "dest": "/api/notification-service/src/index.ts"
+    },
+    {
+      "src": "/api/user-service",
+      "dest": "/api/user-service/src/index.ts"
+    }
+  ]
+}

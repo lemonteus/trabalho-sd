@@ -1,0 +1,43 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "frontend/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "rootDirectory": "frontend",
+          "distDir": "dist"
+        }
+      },
+      {
+        "src": "microservice_backend/api/subscription-service/src/index.ts",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "microservice_backend/api/notification-service/src/index.ts",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "microservice_backend/api/user-service/src/index.ts",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/subscription-service(?:/.*)?",
+        "dest": "/microservice_backend/api/subscription-service/src/index.ts"
+      },
+      {
+        "src": "/api/notification-service(?:/.*)?",
+        "dest": "/microservice_backend/api/notification-service/src/index.ts"
+      },
+      {
+        "src": "/api/user-service(?:/.*)?",
+        "dest": "/microservice_backend/api/user-service/src/index.ts"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/frontend/index.html"
+      }
+    ]
+  }

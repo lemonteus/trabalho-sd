@@ -8,17 +8,17 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/web-push": "^3.6.4",
+    "tsc-watch": "^6.2.1",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.23.0",
     "@typescript-eslint/parser": "^8.23.0",
+    "@vercel/node": "^5.1.2",
     "cors": "^2.8.5",
     "eslint": "^9.19.0",
     "express": "^4.21.2",
     "firebase-functions": "^6.3.1",
-    "tsc-watch": "^6.2.1",
-    "web-push": "^3.6.7"
+    "vercel": "^41.0.2"
   }
 }
