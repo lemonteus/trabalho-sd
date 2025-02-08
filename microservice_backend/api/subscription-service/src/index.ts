@@ -11,6 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method === 'POST') {
     const subscription = req.body;
+    console.log(subscription);
     // Check if subscription already exists
     if (subscriptions.find((sub) => sub.endpoint === subscription.endpoint)) {
       return res.status(400).json({ message: 'Subscription already exists' });
