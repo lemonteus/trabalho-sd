@@ -1,4 +1,4 @@
-# trabalho-sd-sns
+# trabalho-sd
 
 ## 1. Para implementar
 O projeto foi implementado com base em um back-end monolítico, um back-end baseado em microsserviços e o front-end (interface do usuário). O back-end monolítico e os microsserviços foram implementados utilizando Node.js, enquanto o 
